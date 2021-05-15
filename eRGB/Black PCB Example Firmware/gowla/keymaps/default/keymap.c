@@ -15,10 +15,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
-        if (clockwise) {
-		  tap_code(KC_VOLU);
-		} else {
-		  tap_code(KC_VOLD);
+		switch(biton32(layer_state)){
+			case 1: //Layer 1
+				if (clockwise){
+					tap_code(KC_DOWN);
+				} else{
+					tap_code(KC_UP);
+				}
+				break;
+			default: // All other layers
+				if (clockwise) {
+					tap_code(KC_VOLU);
+				} else {
+					tap_code(KC_VOLD);
+				break;
 		}
 	}
 };
